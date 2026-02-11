@@ -16,12 +16,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Reveal animations on scroll
 const revealOnScroll = () => {
     const reveals = document.querySelectorAll('.skill-card, .project-card, .section-header');
-    
+
     reveals.forEach(element => {
         const windowHeight = window.innerHeight;
         const elementTop = element.getBoundingClientRect().top;
         const elementVisible = 150;
-        
+
         if (elementTop < windowHeight - elementVisible) {
             element.classList.add('active');
             // Adding active class via JS, styling in CSS could be added if needed
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transform = "translateY(20px)";
         el.style.transition = "all 0.6s ease-out";
     });
-    
+
     revealOnScroll(); // Check on load
 });
 
@@ -55,4 +55,12 @@ window.addEventListener('scroll', () => {
         header.style.padding = "0";
         header.style.boxShadow = "none";
     }
+});
+
+// Collapsible Sections
+document.querySelectorAll('.header-with-toggle').forEach(header => {
+    header.addEventListener('click', () => {
+        const section = header.closest('.collapsible');
+        section.classList.toggle('collapsed');
+    });
 });

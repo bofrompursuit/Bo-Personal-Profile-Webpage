@@ -292,7 +292,7 @@ h3 {
 }
 
 .soar .project-image {
-    background-image: url('https://images.unsplash.com/photo-1454165833762-02c4f728fa72?auto=format&fit=crop&q=80&w=800');
+    background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800');
 }
 
 .project-info {
@@ -587,4 +587,44 @@ h3 {
 
 .wa-link:hover {
     text-decoration: underline;
+}
+
+/* Collapsible Sections */
+.header-with-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.collapse-toggle {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.collapsible.collapsed .collapse-toggle {
+    transform: rotate(-90deg);
+}
+
+.collapsible-content {
+    max-height: 5000px;
+    /* Large enough for content */
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease;
+}
+
+.collapsible.collapsed .collapsible-content {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+}
+
+.collapsible.collapsed {
+    padding-bottom: 2rem !important;
 }
