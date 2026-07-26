@@ -88,6 +88,41 @@ h3 {
     gap: 1.5rem;
 }
 
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1100;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+.nav-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 .social-icon {
     color: var(--text-secondary);
     transition: var(--transition);
@@ -213,6 +248,38 @@ h3 {
     max-width: 700px;
 }
 
+#background {
+    padding: 60px 0;
+}
+
+.background-points {
+    list-style: none;
+    max-width: 700px;
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.background-points li {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.background-points li::before {
+    content: "\2192";
+    position: absolute;
+    left: 0;
+    color: var(--accent-purple);
+    font-weight: 700;
+}
+
+.background-points strong {
+    color: var(--text-primary);
+}
+
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -280,19 +347,36 @@ h3 {
 }
 
 .scribe .project-image {
-    background-image: url('https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&q=80&w=800');
+    background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=800');
 }
 
 .ad2 .project-image {
-    background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800');
+    background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800');
 }
 
 .closer .project-image {
-    background-image: url('https://images.unsplash.com/photo-1551288049-bbbda5366fd9?auto=format&fit=crop&q=80&w=800');
+    background-image: url('https://images.unsplash.com/photo-1516110833967-0b5716ca1387?auto=format&fit=crop&q=80&w=800');
 }
 
 .soar .project-image {
-    background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800');
+    background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800');
+}
+
+/* Swap any of these url()s for assets/your-photo.jpg to use your own screenshots */
+.collab-prototype .project-image {
+    background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=800');
+}
+
+.collab-salesforce .project-image {
+    background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800');
+}
+
+.collab-design-system .project-image {
+    background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=800');
+}
+
+.collab-unlocked .project-image {
+    background-image: url('https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&q=80&w=800');
 }
 
 .project-info {
@@ -398,35 +482,105 @@ h3 {
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 1.25rem;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
     .nav-links {
-        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: var(--transition);
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav-links .nav-link {
+        padding: 1.25rem;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .header-socials {
+        gap: 1rem;
+    }
+
+    .about,
+    .work,
+    .journey,
+    .arsenal {
+        padding: 60px 0;
+    }
+
+    .contact {
+        padding: 80px 0;
+    }
+
+    .section-title {
+        font-size: 2.25rem;
     }
 
     .hero {
         grid-template-columns: 1fr;
         padding-top: 120px;
+        padding-bottom: 60px;
         text-align: center;
+    }
+
+    .hero-title {
+        font-size: 2.75rem;
     }
 
     .hero-bio {
         margin-left: auto;
         margin-right: auto;
+        font-size: 1.1rem;
     }
 
     .hero-actions {
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     .hero-image-grid {
-        height: 400px;
+        height: 320px;
     }
 
     .projects-grid {
         grid-template-columns: 1fr;
     }
 
+    .project-image {
+        height: 220px;
+    }
+
+    .timeline {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-dot {
+        left: -2.1rem;
+    }
+
     .contact-title {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .link-value {
@@ -435,6 +589,46 @@ h3 {
 
     .contact-grid {
         grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .qr-stack {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.25rem;
+    }
+
+    .section-title {
+        font-size: 1.85rem;
+    }
+
+    .contact-title {
+        font-size: 2rem;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .qr-code {
+        width: 160px;
+        height: 160px;
     }
 }
 
@@ -539,7 +733,10 @@ h3 {
     align-items: center;
 }
 
-.whatsapp-qr-container {
+.qr-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     perspective: 1000px;
 }
 

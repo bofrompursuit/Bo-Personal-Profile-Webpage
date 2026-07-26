@@ -20,10 +20,16 @@
         <nav class="nav container">
             <a href="#" class="logo">Bo Moldenhauer</a>
             <div class="nav-links">
-                <a href="#about" class="nav-link">About</a>
                 <a href="#work" class="nav-link">Work</a>
+                <a href="#background" class="nav-link">Background</a>
+                <a href="#collaborations" class="nav-link">Collaborations</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="header-socials">
                 <a href="https://www.linkedin.com/in/bomoldenhauer/" target="_blank" rel="noopener noreferrer"
                     aria-label="LinkedIn">
@@ -73,7 +79,89 @@
             </div>
         </section>
 
-        <section id="about" class="about collapsible">
+        <section id="work" class="work collapsible">
+            <div class="container">
+                <div class="section-header">
+                    <div class="header-with-toggle">
+                        <h2 class="section-title">Projects that showcase my passion for development.</h2>
+                        <button class="collapse-toggle" aria-label="Toggle section">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                                fill="none">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="collapsible-content">
+                    <div class="projects-grid">
+                        <a href="https://bofrompursuit.github.io/scribe/" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card scribe">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">AI</span>
+                                        <span class="tag">LLM APIs</span>
+                                    </div>
+                                    <h3>Scribe + Thrive</h3>
+                                    <p>Intelligent transcription tool using AI and LLM APIs for precise and fast
+                                        results.
+                                    </p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://bofrompursuit.github.io/ad2/" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card ad2">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">AdTech</span>
+                                        <span class="tag">Automation</span>
+                                    </div>
+                                    <h3>Ad Optimizer</h3>
+                                    <p>Advertising technology solution for campaign optimization and performance
+                                        tracking.
+                                    </p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://bofrompursuit.github.io/closer-data-analytics/" target="_blank"
+                            rel="noopener noreferrer" class="project-link">
+                            <article class="project-card closer">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Data Analytics</span>
+                                        <span class="tag">React</span>
+                                    </div>
+                                    <h3>Closer Data Analytics</h3>
+                                    <p>Platform for data visualization and reporting, helping businesses make
+                                        data-driven
+                                        decisions.</p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://bofrompursuit.github.io/Soar/" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card soar">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Wellness Platform</span>
+                                        <span class="tag">Full Stack</span>
+                                    </div>
+                                    <h3>Soarin' (Wellness Platform)</h3>
+                                    <p>Business growth and performance metric platform designed for scalability.</p>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="background" class="about collapsible">
             <div class="container">
                 <div class="section-header">
                     <div class="header-with-toggle">
@@ -85,8 +173,13 @@
                             </svg>
                         </button>
                     </div>
-                    <p class="section-subtitle">With a background in Client Finance Operations and a passion for AI, I
-                        build solutions that are not only technically sound but also operationally efficient.</p>
+                    <ul class="background-points">
+                        <li>10+ years managing complex financial operations, credit risk, and enterprise billing.</li>
+                        <li>Full-stack AI software development (building LLM pipelines, agentic workflows, RAG
+                            architectures, and custom UI dashboards).</li>
+                        <li><strong>Value proposition:</strong> Building software tools that aren't just technically
+                            sound, but eliminate operational friction and automate financial workflows.</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -175,11 +268,11 @@
             </div>
         </section>
 
-        <section id="work" class="work collapsible">
+        <section id="collaborations" class="work collapsible">
             <div class="container">
                 <div class="section-header">
                     <div class="header-with-toggle">
-                        <h2 class="section-title">Projects that showcase my passion for development.</h2>
+                        <h2 class="section-title">Builds that showcase my collaboration.</h2>
                         <button class="collapse-toggle" aria-label="Toggle section">
                             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
                                 fill="none">
@@ -190,65 +283,63 @@
                 </div>
                 <div class="collapsible-content">
                     <div class="projects-grid">
-                        <a href="https://bofrompursuit.github.io/scribe/" target="_blank" rel="noopener noreferrer"
-                            class="project-link">
-                            <article class="project-card scribe">
-                                <div class="project-image"></div>
-                                <div class="project-info">
-                                    <div class="project-tags">
-                                        <span class="tag">AI</span>
-                                        <span class="tag">LLM APIs</span>
-                                    </div>
-                                    <h3>Scribe + Thrive</h3>
-                                    <p>Intelligent transcription tool using AI and LLM APIs for precise and fast
-                                        results.
-                                    </p>
-                                </div>
-                            </article>
-                        </a>
-                        <a href="https://bofrompursuit.github.io/ad2/" target="_blank" rel="noopener noreferrer"
-                            class="project-link">
-                            <article class="project-card ad2">
-                                <div class="project-image"></div>
-                                <div class="project-info">
-                                    <div class="project-tags">
-                                        <span class="tag">AdTech</span>
-                                        <span class="tag">Automation</span>
-                                    </div>
-                                    <h3>Ad Optimizer</h3>
-                                    <p>Advertising technology solution for campaign optimization and performance
-                                        tracking.
-                                    </p>
-                                </div>
-                            </article>
-                        </a>
-                        <a href="https://bofrompursuit.github.io/closer-data-analytics/" target="_blank"
+                        <a href="https://pants-floret-49240520.figma.site/" target="_blank"
                             rel="noopener noreferrer" class="project-link">
-                            <article class="project-card closer">
+                            <article class="project-card collab-prototype">
                                 <div class="project-image"></div>
                                 <div class="project-info">
                                     <div class="project-tags">
-                                        <span class="tag">Data Analytics</span>
-                                        <span class="tag">React</span>
+                                        <span class="tag">Figma</span>
+                                        <span class="tag">Prototyping</span>
                                     </div>
-                                    <h3>Closer Data Analytics</h3>
-                                    <p>Platform for data visualization and reporting, helping businesses make
-                                        data-driven
-                                        decisions.</p>
+                                    <h3>LinkUp</h3>
+                                    <p>Cross-functional prototype built with design and product partners to validate
+                                        a new user flow.</p>
                                 </div>
                             </article>
                         </a>
-                        <a href="https://bofrompursuit.github.io/Soar/" target="_blank" rel="noopener noreferrer"
-                            class="project-link">
-                            <article class="project-card soar">
+                        <a href="https://bofrompursuit.github.io/salesforce-remix-version-/" target="_blank"
+                            rel="noopener noreferrer" class="project-link">
+                            <article class="project-card collab-salesforce">
                                 <div class="project-image"></div>
                                 <div class="project-info">
                                     <div class="project-tags">
-                                        <span class="tag">Wellness Platform</span>
+                                        <span class="tag">Salesforce</span>
+                                        <span class="tag">Remix</span>
+                                    </div>
+                                    <h3>CRM Operations Engine</h3>
+                                    <p>Collaborative rebuild integrating Salesforce data into a modern Remix front
+                                        end with a cross-functional team.</p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://wake-bush-18609568.figma.site" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card collab-design-system">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Figma</span>
+                                        <span class="tag">UI/UX</span>
+                                    </div>
+                                    <h3>CYA NYC</h3>
+                                    <p>Team-built Figma site showcasing a shared design system and component library
+                                        developed with design partners.</p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://unlocked-zeta.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card collab-unlocked">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Vercel</span>
                                         <span class="tag">Full Stack</span>
                                     </div>
-                                    <h3>Soarin' (Wellness Platform)</h3>
-                                    <p>Business growth and performance metric platform designed for scalability.</p>
+                                    <h3>Fanzone Unlocked</h3>
+                                    <p>Full-stack web app built and deployed with a collaborative development team,
+                                        from concept to production.</p>
                                 </div>
                             </article>
                         </a>
@@ -288,12 +379,21 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="whatsapp-qr-container">
+                        <div class="qr-stack">
                             <div class="qr-card">
                                 <img src="assets/whatsapp_qr.png" alt="WhatsApp QR Code" class="qr-code">
                                 <div class="qr-info">
                                     <h3>Connect on WhatsApp</h3>
                                     <p>Scan to chat directly</p>
+                                </div>
+                            </div>
+                            <div class="qr-card">
+                                <img src="assets/venmo_qr.png" alt="Venmo QR Code" class="qr-code">
+                                <div class="qr-info">
+                                    <h3>Support This Build</h3>
+                                    <p>Want to support this build anonymously? Drop a tip on Venmo:</p>
+                                    <a href="https://venmo.com/u/beau_moldenhauer" target="_blank"
+                                        rel="noopener noreferrer" class="wa-link">@beau_moldenhauer</a>
                                 </div>
                             </div>
                         </div>
