@@ -13,7 +13,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Reveal animations on scroll
+// Reveal animations on scroll (base/hidden state lives in CSS; this just toggles the class)
 const revealOnScroll = () => {
     const reveals = document.querySelectorAll('.skill-card, .project-card, .section-header');
 
@@ -23,25 +23,12 @@ const revealOnScroll = () => {
         const elementVisible = 150;
 
         if (elementTop < windowHeight - elementVisible) {
-            element.classList.add('active');
-            // Adding active class via JS, styling in CSS could be added if needed
-            element.style.opacity = "1";
-            element.style.transform = "translateY(0)";
+            element.classList.add('is-visible');
         }
     });
 };
 
-// Initial setup for reveal elements
-document.addEventListener('DOMContentLoaded', () => {
-    const reveals = document.querySelectorAll('.skill-card, .project-card, .section-header');
-    reveals.forEach(el => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(20px)";
-        el.style.transition = "all 0.6s ease-out";
-    });
-
-    revealOnScroll(); // Check on load
-});
+document.addEventListener('DOMContentLoaded', revealOnScroll); // Check on load
 
 window.addEventListener('scroll', revealOnScroll);
 
@@ -84,3 +71,57 @@ document.querySelectorAll('.header-with-toggle').forEach(header => {
         section.classList.toggle('collapsed');
     });
 });
+
+// Infinite marquee: duplicate each card once so the CSS loop (-50%) is seamless.
+// Duplicates are hidden from assistive tech and removed from tab order.
+document.querySelectorAll('.marquee-track').forEach(track => {
+    Array.from(track.children).forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '-1'));
+        track.appendChild(clone);
+    });
+});
+
+// Ambient background audio toggle (starts muted/paused per autoplay policy)
+const audioToggle = document.getElementById('audio-toggle');
+const bgAudio = document.getElementById('bg-audio');
+
+if (audioToggle && bgAudio) {
+    bgAudio.volume = 0.2;
+
+    audioToggle.addEventListener('click', () => {
+        const willPlay = bgAudio.paused;
+
+        if (willPlay) {
+            bgAudio.play().catch(() => {});
+        } else {
+            bgAudio.pause();
+        }
+
+        audioToggle.classList.toggle('is-playing', willPlay);
+        audioToggle.setAttribute('aria-pressed', String(willPlay));
+        audioToggle.setAttribute('aria-label', willPlay ? 'Mute background music' : 'Play background music');
+    });
+}
+
+// Section background videos: only fetch/play once a section is in view, pause when it isn't.
+const lazyBgVideos = document.querySelectorAll('.bg-video[data-src]');
+
+if (lazyBgVideos.length && 'IntersectionObserver' in window) {
+    const bgVideoObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                if (!video.src) {
+                    video.src = video.dataset.src;
+                }
+                video.play().catch(() => {});
+            } else {
+                video.pause();
+            }
+        });
+    }, { threshold: 0.15 });
+
+    lazyBgVideos.forEach(video => bgVideoObserver.observe(video));
+}

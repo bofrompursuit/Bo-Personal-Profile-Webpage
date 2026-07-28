@@ -40,6 +40,22 @@ h3 {
     padding: 0 2rem;
 }
 
+/* Scroll reveal (class-based so component :hover rules aren't blocked by inline styles) */
+.skill-card,
+.project-card,
+.section-header {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.skill-card.is-visible,
+.project-card.is-visible,
+.section-header.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Header */
 .header {
     position: fixed;
@@ -135,12 +151,44 @@ h3 {
 
 /* Hero Section */
 .hero {
-    padding-top: 160px;
-    padding-bottom: 100px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    position: relative;
+    min-height: 90vh;
+    display: flex;
     align-items: center;
+    padding-top: 80px;
+    overflow: hidden;
+    color: var(--text-light);
+}
+
+.hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a2e 55%, #0a0a0a);
+}
+
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
 }
 
 .hero-title {
@@ -152,7 +200,7 @@ h3 {
 
 .hero-bio {
     font-size: 1.25rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.85);
     margin-bottom: 3rem;
     max-width: 500px;
 }
@@ -160,6 +208,24 @@ h3 {
 .hero-actions {
     display: flex;
     gap: 1.5rem;
+}
+
+.hero .btn-primary {
+    background-color: var(--text-light);
+    color: var(--text-primary);
+}
+
+.hero .btn-primary:hover {
+    background-color: #f0f0f0;
+}
+
+.hero .btn-secondary {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: var(--text-light);
+}
+
+.hero .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .btn {
@@ -193,39 +259,6 @@ h3 {
     transform: translateY(-2px);
 }
 
-.hero-image-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 1rem;
-    height: 500px;
-}
-
-.grid-item {
-    background: #f0f0f0;
-    border-radius: 12px;
-    transition: var(--transition);
-    background-size: cover;
-    background-position: center;
-}
-
-.grid-item:hover {
-    transform: scale(1.02);
-}
-
-.item-1 {
-    grid-row: span 2;
-    background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800');
-}
-
-.item-2 {
-    background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800');
-}
-
-.item-3 {
-    background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800');
-}
-
 /* About Section */
 .about {
     padding: 100px 0;
@@ -248,14 +281,66 @@ h3 {
     max-width: 700px;
 }
 
+/* Section background video layer (shared by #background and #contact) */
+.about,
+.contact {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.bg-overlay-light {
+    background: rgba(248, 249, 250, 0.88);
+}
+
+.bg-overlay-dark {
+    background: rgba(0, 0, 0, 0.65);
+}
+
 #background {
-    padding: 60px 0;
+    padding: 50px 0;
+}
+
+#background .header-with-toggle {
+    margin-bottom: 2rem;
+}
+
+.background-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.background-subhead {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
 }
 
 .background-points {
     list-style: none;
-    max-width: 700px;
-    margin-top: 1.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -315,16 +400,49 @@ h3 {
     padding: 100px 0;
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
+/* Infinite marquee of project cards */
+.marquee {
+    overflow: hidden;
+    margin: 0 -2rem;
+    padding: 0 2rem;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 2rem;
+    animation: marquee-scroll 40s linear infinite;
+    will-change: transform;
+}
+
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+        animation: none;
+    }
 }
 
 .project-link {
     text-decoration: none;
     color: inherit;
     display: block;
+    flex: 0 0 auto;
+    width: 380px;
 }
 
 .project-card {
@@ -336,7 +454,7 @@ h3 {
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
+    transform: scale(1.03) translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
@@ -470,75 +588,111 @@ h3 {
     font-size: 0.9rem;
 }
 
-/* Career Journey Timeline */
-.journey {
-    padding: 100px 0;
+.audio-credit {
+    margin-top: 1rem;
+    opacity: 0.35;
+    font-size: 0.75rem;
 }
 
+/* Ambient audio toggle */
+.audio-toggle {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-dark);
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+.audio-toggle:hover {
+    transform: scale(1.08);
+}
+
+.audio-toggle .icon-playing {
+    display: none;
+}
+
+.audio-toggle.is-playing .icon-muted {
+    display: none;
+}
+
+.audio-toggle.is-playing .icon-playing {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .audio-toggle {
+        right: 1.25rem;
+        bottom: 1.25rem;
+    }
+}
+
+/* Career Journey Timeline (compact, lives in a .background-col) */
 .timeline {
     position: relative;
-    max-width: 800px;
-    margin: 4rem auto 0;
-    padding-left: 2rem;
+    padding-left: 1.5rem;
     border-left: 2px solid var(--border-color);
 }
 
 .timeline-item {
     position: relative;
-    margin-bottom: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
 }
 
 .timeline-dot {
     position: absolute;
-    left: -2.6rem;
-    top: 0.5rem;
-    width: 1rem;
-    height: 1rem;
+    left: -2.1rem;
+    top: 0.35rem;
+    width: 0.85rem;
+    height: 0.85rem;
     background: var(--accent-purple);
     border-radius: 50%;
-    border: 4px solid var(--bg-primary);
+    border: 3px solid var(--bg-secondary);
 }
 
 .timeline-date {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--accent-purple);
     text-transform: uppercase;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .timeline-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
 }
 
 .timeline-content p {
     color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
-/* Technical Arsenal */
-.arsenal {
-    padding: 100px 0;
-}
-
+/* Technical Arsenal (compact, lives in a .background-col) */
 .arsenal-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    margin-top: 4rem;
-}
-
-@media (max-width: 992px) {
-    .arsenal-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .arsenal-category h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
     color: var(--text-primary);
 }
 
@@ -670,8 +824,12 @@ h3 {
         font-size: 4rem;
     }
 
-    .hero {
-        gap: 2rem;
+    .background-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .background-intro {
+        grid-column: 1 / -1;
     }
 }
 
@@ -717,14 +875,17 @@ h3 {
     }
 
     .about,
-    .work,
-    .journey,
-    .arsenal {
+    .work {
         padding: 60px 0;
     }
 
     #background {
         padding: 40px 0;
+    }
+
+    .background-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
     .contact {
@@ -736,10 +897,15 @@ h3 {
     }
 
     .hero {
-        grid-template-columns: 1fr;
+        min-height: auto;
         padding-top: 120px;
         padding-bottom: 60px;
         text-align: center;
+        justify-content: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
     }
 
     .hero-title {
@@ -757,28 +923,12 @@ h3 {
         flex-wrap: wrap;
     }
 
-    .hero-image-grid {
-        height: 320px;
-    }
-
-    .projects-grid {
-        grid-template-columns: 1fr;
+    .project-link {
+        width: 280px;
     }
 
     .project-image {
         height: 220px;
-    }
-
-    .timeline {
-        padding-left: 1.5rem;
-    }
-
-    .timeline-dot {
-        left: -2.1rem;
-    }
-
-    .arsenal-grid {
-        gap: 1.5rem;
     }
 
     .contact-title {

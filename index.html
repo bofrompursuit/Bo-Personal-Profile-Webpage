@@ -56,8 +56,16 @@
     </header>
 
     <main>
-        <section id="hero" class="hero container">
-            <div class="hero-content">
+        <section id="hero" class="hero">
+            <div class="hero-media" aria-hidden="true">
+                <!-- Drop a licensed tech/coding clip at assets/hero-bg.mp4 to replace the gradient+poster fallback below -->
+                <video class="hero-video" autoplay muted loop playsinline
+                    poster="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1600">
+                    <source src="assets/hero-bg.mp4" type="video/mp4">
+                </video>
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content container">
                 <h1 class="hero-title">Developer.<br>Builder.<br>Problem Solver.</h1>
                 <p class="hero-bio">
                     I put <strong>Bo</strong> in colla-<strong>BO</strong>-ration. <br>
@@ -69,13 +77,6 @@
                     <a href="https://www.linkedin.com/in/bomoldenhauer/" target="_blank" rel="noopener noreferrer"
                         class="btn btn-secondary">Connect on LinkedIn</a>
                 </div>
-            </div>
-            <div class="hero-image-grid">
-                <!-- Image grid will be stylized in CSS -->
-                <div class="grid-item item-1"></div>
-                <div class="grid-item item-2"></div>
-                <div class="grid-item item-3"></div>
-                <div class="grid-item item-4"></div>
             </div>
         </section>
 
@@ -93,7 +94,8 @@
                     </div>
                 </div>
                 <div class="collapsible-content">
-                    <div class="projects-grid">
+                    <div class="marquee">
+                        <div class="marquee-track">
                         <a href="https://bofrompursuit.github.io/scribe/" target="_blank" rel="noopener noreferrer"
                             class="project-link">
                             <article class="project-card scribe">
@@ -156,112 +158,101 @@
                                 </div>
                             </article>
                         </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="background" class="about collapsible">
+            <video class="bg-video" data-src="assets/background-bg.mp4" muted loop playsinline preload="none"
+                aria-hidden="true"></video>
+            <div class="bg-overlay bg-overlay-light" aria-hidden="true"></div>
             <div class="container">
-                <div class="section-header">
-                    <div class="header-with-toggle">
-                        <h2 class="section-title">Bridging Finance Operations & AI Development.</h2>
-                        <button class="collapse-toggle" aria-label="Toggle section">
-                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
-                                fill="none">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </button>
-                    </div>
-                    <ul class="background-points">
-                        <li>10+ years managing complex financial operations, credit risk, and enterprise billing.</li>
-                        <li>Full-stack AI software development (building LLM pipelines, agentic workflows, RAG
-                            architectures, and custom UI dashboards).</li>
-                        <li><strong>Value proposition:</strong> Building software tools that aren't just technically
-                            sound, but eliminate operational friction and automate financial workflows.</li>
-                    </ul>
+                <div class="header-with-toggle">
+                    <h2 class="section-title">Bridging Finance Operations & AI Development.</h2>
+                    <button class="collapse-toggle" aria-label="Toggle section">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                            fill="none">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
                 </div>
-            </div>
-        </section>
-
-        <section id="journey" class="journey container collapsible">
-            <div class="header-with-toggle">
-                <h2 class="section-title">Career Journey</h2>
-                <button class="collapse-toggle" aria-label="Toggle section">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                        <path d="M6 9l6 6 6-6" />
-                    </svg>
-                </button>
-            </div>
-            <div class="collapsible-content">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <span class="timeline-date">Present</span>
-                            <h3>AI Software Developer</h3>
-                            <p>Specializing in LLM integration, automation, and full-stack development. Building the
-                                next generation of intelligent tools.</p>
+                <div class="collapsible-content">
+                    <div class="background-grid">
+                        <div class="background-col background-intro">
+                            <ul class="background-points">
+                                <li>10+ years managing complex financial operations, credit risk, and enterprise
+                                    billing.</li>
+                                <li>Full-stack AI software development (building LLM pipelines, agentic workflows,
+                                    RAG architectures, and custom UI dashboards).</li>
+                                <li><strong>Value proposition:</strong> Building software tools that aren't just
+                                    technically sound, but eliminate operational friction and automate financial
+                                    workflows.</li>
+                            </ul>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <span class="timeline-date">Past</span>
-                            <h3>Finance Operations Manager</h3>
-                            <p>Managed complex financial systems and client relations across Fintech, Banking, and
-                                eCommerce sectors.</p>
+                        <div class="background-col background-journey">
+                            <h3 class="background-subhead">Career Journey</h3>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-date">Present</span>
+                                        <h3>AI Software Developer</h3>
+                                        <p>Specializing in LLM integration, automation, and full-stack development.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-date">Past</span>
+                                        <h3>Finance Operations Manager</h3>
+                                        <p>Managed complex financial systems across Fintech, Banking, and eCommerce.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-date">Background</span>
+                                        <h3>Cross-Industry Expert</h3>
+                                        <p>Deep experience in AdTech, Marketing, BPO, and Telecoms.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <span class="timeline-date">Background</span>
-                            <h3>Cross-Industry Expert</h3>
-                            <p>Deep experience in AdTech, Marketing, BPO, and Telecoms, providing a unique vantage point
-                                for problem-solving.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="arsenal" class="arsenal container collapsible">
-            <div class="header-with-toggle">
-                <h2 class="section-title">Technical Arsenal</h2>
-                <button class="collapse-toggle" aria-label="Toggle section">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                        <path d="M6 9l6 6 6-6" />
-                    </svg>
-                </button>
-            </div>
-            <div class="collapsible-content">
-                <div class="arsenal-grid">
-                    <div class="arsenal-category">
-                        <h3>Core Development</h3>
-                        <div class="arsenal-tags">
-                            <span class="tag tech">Python</span>
-                            <span class="tag tech">JavaScript</span>
-                            <span class="tag tech">React</span>
-                            <span class="tag tech">TypeScript</span>
-                        </div>
-                    </div>
-                    <div class="arsenal-category">
-                        <h3>AI & Automation</h3>
-                        <div class="arsenal-tags">
-                            <span class="tag tech">LLM APIs</span>
-                            <span class="tag tech">Prompt Eng.</span>
-                            <span class="tag tech">Automations</span>
-                            <span class="tag tech">Pinecone</span>
-                        </div>
-                    </div>
-                    <div class="arsenal-category">
-                        <h3>Operations & Cloud</h3>
-                        <div class="arsenal-tags">
-                            <span class="tag tech">Git/GitHub</span>
-                            <span class="tag tech">Cloud Platforms</span>
-                            <span class="tag tech">RESTful APIs</span>
-                            <span class="tag tech">SQL</span>
+                        <div class="background-col background-arsenal">
+                            <h3 class="background-subhead">Technical Arsenal</h3>
+                            <div class="arsenal-grid">
+                                <div class="arsenal-category">
+                                    <h3>Core Development</h3>
+                                    <div class="arsenal-tags">
+                                        <span class="tag tech">Python</span>
+                                        <span class="tag tech">JavaScript</span>
+                                        <span class="tag tech">React</span>
+                                        <span class="tag tech">TypeScript</span>
+                                    </div>
+                                </div>
+                                <div class="arsenal-category">
+                                    <h3>AI & Automation</h3>
+                                    <div class="arsenal-tags">
+                                        <span class="tag tech">LLM APIs</span>
+                                        <span class="tag tech">Prompt Eng.</span>
+                                        <span class="tag tech">Automations</span>
+                                        <span class="tag tech">Pinecone</span>
+                                    </div>
+                                </div>
+                                <div class="arsenal-category">
+                                    <h3>Operations & Cloud</h3>
+                                    <div class="arsenal-tags">
+                                        <span class="tag tech">Git/GitHub</span>
+                                        <span class="tag tech">Cloud Platforms</span>
+                                        <span class="tag tech">RESTful APIs</span>
+                                        <span class="tag tech">SQL</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -282,7 +273,8 @@
                     </div>
                 </div>
                 <div class="collapsible-content">
-                    <div class="projects-grid">
+                    <div class="marquee">
+                        <div class="marquee-track">
                         <a href="https://pants-floret-49240520.figma.site/" target="_blank"
                             rel="noopener noreferrer" class="project-link">
                             <article class="project-card collab-prototype">
@@ -343,12 +335,16 @@
                                 </div>
                             </article>
                         </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="contact" class="contact dark-section collapsible">
+            <video class="bg-video" data-src="assets/contact-bg.mp4" muted loop playsinline preload="none"
+                aria-hidden="true"></video>
+            <div class="bg-overlay bg-overlay-dark" aria-hidden="true"></div>
             <div class="container">
                 <div class="header-with-toggle">
                     <h2 class="contact-title">Let's work together.</h2>
@@ -414,8 +410,30 @@
                 <p>&copy; 2026 Bo Moldenhauer. All rights reserved.</p>
                 <p>Built with Passion & Semantic Code.</p>
             </div>
+            <p class="audio-credit">Ambient audio: "Life of Riley" by Kevin MacLeod (incompetech.com), licensed under
+                CC BY 3.0.</p>
         </div>
     </footer>
+
+    <audio id="bg-audio" loop preload="none">
+        <source src="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Life%20of%20Riley.mp3"
+            type="audio/mpeg">
+    </audio>
+    <button id="audio-toggle" class="audio-toggle" type="button" aria-pressed="false"
+        aria-label="Play background music">
+        <svg class="icon-muted" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H2v6h4l5 4V5z"></path>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <svg class="icon-playing" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H2v6h4l5 4V5z"></path>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+    </button>
 
     <script src="main.js"></script>
 </body>
