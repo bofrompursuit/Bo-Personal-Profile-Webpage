@@ -168,3 +168,193 @@ if (lazyBgVideos.length && 'IntersectionObserver' in window) {
 
     lazyBgVideos.forEach(video => bgVideoObserver.observe(video));
 }
+
+// AI Assistant: a client-side FAQ chatbot grounded strictly in this page's own
+// content (no external API calls, so there's no key to leak and no risk of
+// answering off-topic or making things up).
+(() => {
+    const toggleBtn = document.getElementById('ai-chat-toggle');
+    const panel = document.getElementById('ai-chat-panel');
+    const backdrop = document.getElementById('ai-chat-backdrop');
+    const closeBtn = document.getElementById('ai-chat-close');
+    const messagesEl = document.getElementById('ai-chat-messages');
+    const form = document.getElementById('ai-chat-form');
+    const input = document.getElementById('ai-chat-input');
+
+    if (!toggleBtn || !panel || !form || !input) return;
+
+    const KNOWLEDGE = {
+        greeting: "Hi! I'm Bo's portfolio assistant. Ask me about his background, technical skills, featured projects, or collaborations.",
+        background: "10+ years as a Finance Operations Manager across Fintech, Banking, AdTech, and eCommerce, now transitioning into full-stack AI software development — building LLM pipelines, agentic workflows, RAG architectures, and custom UI dashboards. The throughline: building software that eliminates operational friction and automates financial workflows, not just technically sound tools.",
+        arsenal: "Technical arsenal:\nCore Development — Python, JavaScript, React, TypeScript\nAI & Automation — LLM APIs, Prompt Engineering, Automations, Pinecone\nOperations & Cloud — Git/GitHub, Cloud Platforms, RESTful APIs, SQL",
+        projects: "Featured projects:\n• Scribe + Thrive — AI transcription tool using LLM APIs\n• Ad Optimizer — AdTech campaign optimization & performance tracking\n• Closer Data Analytics — data visualization/reporting platform built in React\n• Soarin' — wellness business growth & performance metrics platform\nScroll up to the Work section for live links.",
+        collaborations: "Collaborative builds:\n• LinkUp — Figma prototype validating a new user flow\n• CRM Operations Engine — Salesforce data rebuilt into a Remix front end\n• CYA NYC — shared Figma design system & component library\n• Fanzone Unlocked — full-stack app built and deployed with a team, on Vercel\nScroll up to the Collaborations section for live links.",
+        contact: "You can reach Bo directly — email bo.moldenhauer@pursuit.org, LinkedIn at linkedin.com/in/bomoldenhauer, or GitHub at github.com/bofrompursuit.",
+    };
+
+    const FALLBACK = "I'm best at answering questions about Bo's background, technical skills, projects, or how to get in touch — try asking about one of those!";
+
+    const TOPICS = [
+        { key: 'background', words: ['background', 'experience', 'finance', 'career', 'journey', 'transition', 'history', 'about'] },
+        { key: 'arsenal', words: ['skill', 'skills', 'tech', 'technical', 'stack', 'language', 'languages', 'tool', 'tools', 'arsenal', 'python', 'javascript', 'react', 'typescript', 'sql', 'pinecone', 'know'] },
+        { key: 'projects', words: ['project', 'projects', 'scribe', 'thrive', 'optimizer', 'adtech', 'closer', 'analytics', 'soar', 'soarin', 'wellness', 'portfolio', 'built', 'work'] },
+        { key: 'collaborations', words: ['collab', 'collaboration', 'collaborations', 'linkup', 'crm', 'salesforce', 'remix', 'cya', 'nyc', 'fanzone', 'unlocked', 'team', 'partner'] },
+        { key: 'contact', words: ['contact', 'email', 'reach', 'hire', 'linkedin', 'github', 'connect', 'message', 'talk'] },
+        { key: 'greeting', words: ['hi', 'hello', 'hey', 'sup', 'yo'] },
+    ];
+
+    const escapeRegex = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    function matchTopic(text) {
+        let best = null;
+        let bestScore = 0;
+        TOPICS.forEach(topic => {
+            const score = topic.words.reduce((count, w) => {
+                const re = new RegExp(`\\b${escapeRegex(w)}\\b`, 'i');
+                return count + (re.test(text) ? 1 : 0);
+            }, 0);
+            if (score > bestScore) {
+                bestScore = score;
+                best = topic.key;
+            }
+        });
+        return best;
+    }
+
+    let isOpen = false;
+    let greeted = false;
+    let questionCount = 0;
+    let hasOfferedContact = false;
+
+    function scrollToBottom() {
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function addMessage(text, sender) {
+        const msg = document.createElement('div');
+        msg.className = `ai-chat-msg ${sender}`;
+        msg.textContent = text;
+        messagesEl.appendChild(msg);
+        scrollToBottom();
+    }
+
+    function addContactCTA() {
+        const wrap = document.createElement('div');
+        wrap.className = 'ai-chat-msg bot ai-chat-cta';
+
+        const p = document.createElement('p');
+        p.textContent = "It looks like you're interested in learning more! Would you like to reach out directly?";
+
+        const link = document.createElement('a');
+        link.href = '#contact';
+        link.className = 'btn ai-chat-cta-btn';
+        link.textContent = 'Go to Contact';
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            closePanel();
+            const target = document.querySelector('#contact');
+            if (target) {
+                window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+            }
+        });
+
+        wrap.appendChild(p);
+        wrap.appendChild(link);
+        messagesEl.appendChild(wrap);
+        scrollToBottom();
+    }
+
+    function showTyping() {
+        const typing = document.createElement('div');
+        typing.className = 'ai-chat-msg bot ai-chat-typing';
+        typing.id = 'ai-chat-typing-indicator';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        messagesEl.appendChild(typing);
+        scrollToBottom();
+    }
+
+    function hideTyping() {
+        const typing = document.getElementById('ai-chat-typing-indicator');
+        if (typing) typing.remove();
+    }
+
+    function respond(userText) {
+        const topicKey = matchTopic(userText);
+        const reply = topicKey ? KNOWLEDGE[topicKey] : FALLBACK;
+
+        showTyping();
+        window.setTimeout(() => {
+            hideTyping();
+            addMessage(reply, 'bot');
+
+            if (questionCount >= 2 && !hasOfferedContact) {
+                hasOfferedContact = true;
+                window.setTimeout(addContactCTA, 400);
+            }
+        }, 500 + Math.random() * 500);
+    }
+
+    function openPanel() {
+        isOpen = true;
+        panel.classList.add('is-open');
+        backdrop.classList.add('is-open');
+        panel.setAttribute('aria-hidden', 'false');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+
+        if (!greeted) {
+            greeted = true;
+            addMessage(KNOWLEDGE.greeting, 'bot');
+        }
+
+        window.setTimeout(() => input.focus(), 300);
+    }
+
+    function closePanel() {
+        isOpen = false;
+        panel.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        panel.setAttribute('aria-hidden', 'true');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        toggleBtn.focus();
+    }
+
+    toggleBtn.addEventListener('click', () => (isOpen ? closePanel() : openPanel()));
+    closeBtn.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+
+    document.addEventListener('keydown', e => {
+        if (!isOpen) return;
+
+        if (e.key === 'Escape') {
+            closePanel();
+            return;
+        }
+
+        if (e.key === 'Tab') {
+            const focusable = panel.querySelectorAll('button, input, a[href]');
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+    });
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const text = input.value.trim();
+        if (!text) return;
+
+        addMessage(text, 'user');
+        input.value = '';
+        questionCount += 1;
+        respond(text);
+    });
+})();
