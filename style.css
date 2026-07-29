@@ -406,41 +406,28 @@ h3 {
     padding: 100px 0;
 }
 
-/* Infinite marquee of project cards */
+/* Infinite marquee of project cards: native scroll container (JS drives the
+   auto-scroll + seamless loop-back) so touch/trackpad swipe works for free. */
 .marquee {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin: 0 -2rem;
     padding: 0 2rem;
+    touch-action: pan-x;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.marquee::-webkit-scrollbar {
+    display: none;
 }
 
 .marquee-track {
     display: flex;
     width: max-content;
     gap: 2rem;
-    animation: marquee-scroll 22s linear infinite;
-    will-change: transform;
-}
-
-.marquee:hover .marquee-track {
-    animation-play-state: paused;
-}
-
-@keyframes marquee-scroll {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: translate3d(-50%, 0, 0);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-        animation: none;
-    }
 }
 
 .project-link {

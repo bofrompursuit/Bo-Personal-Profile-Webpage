@@ -72,15 +72,58 @@ document.querySelectorAll('.header-with-toggle').forEach(header => {
     });
 });
 
-// Infinite marquee: duplicate each card once so the CSS loop (-50%) is seamless.
+// Infinite marquee: duplicate each card once so the native-scroll loop-back is seamless.
 // Duplicates are hidden from assistive tech and removed from tab order.
-document.querySelectorAll('.marquee-track').forEach(track => {
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+document.querySelectorAll('.marquee').forEach(marquee => {
+    const track = marquee.querySelector('.marquee-track');
+
     Array.from(track.children).forEach(card => {
         const clone = card.cloneNode(true);
         clone.setAttribute('aria-hidden', 'true');
         clone.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '-1'));
         track.appendChild(clone);
     });
+
+    // Auto-flows via rAF-driven scrollLeft; native overflow-x scrolling gives touch/trackpad
+    // swipe "for free" on top of it, so users can drag to grab a card without fighting the loop.
+    const speed = 0.6; // px per frame
+    let flowing = true;
+    let resumeTimer = null;
+
+    const pause = () => {
+        flowing = false;
+        clearTimeout(resumeTimer);
+    };
+    const resume = (delay = 1200) => {
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => { flowing = true; }, delay);
+    };
+
+    marquee.addEventListener('mouseenter', pause);
+    marquee.addEventListener('mouseleave', () => resume(0));
+    marquee.addEventListener('touchstart', pause, { passive: true });
+    marquee.addEventListener('touchend', () => resume());
+    marquee.addEventListener('pointerdown', pause);
+    window.addEventListener('pointerup', () => resume());
+
+    marquee.addEventListener('scroll', () => {
+        const setWidth = track.scrollWidth / 2;
+        if (marquee.scrollLeft >= setWidth) {
+            marquee.scrollLeft -= setWidth;
+        }
+    });
+
+    if (!prefersReducedMotion) {
+        const step = () => {
+            if (flowing) {
+                marquee.scrollLeft += speed;
+            }
+            requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }
 });
 
 // Ambient background audio toggle (starts muted/paused per autoplay policy)
