@@ -186,6 +186,65 @@ h3 {
     transform: translateY(-2px);
 }
 
+/* Mobile nav: a body-level sidebar + backdrop (not nested inside the
+   backdrop-filtered .header) so Safari can't trap their position:fixed
+   inside the header's containing block. Only ever shown ≤768px, where
+   .nav-toggle is visible to open them. */
+.nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 998;
+}
+
+.nav-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(78vw, 320px);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 5rem 0.5rem 2rem;
+    background: var(--nav-bg);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.35);
+    transform: translateX(100%);
+    pointer-events: none;
+    transition: var(--transition);
+    z-index: 999;
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.mobile-nav .nav-link {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-size: 1.15rem;
+    color: #e4e4e7;
+    border-radius: 12px;
+}
+
+.mobile-nav .nav-link:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
 /* Hero Section */
 .hero {
     position: relative;
@@ -1219,59 +1278,12 @@ h3 {
         display: flex;
     }
 
-    .nav-backdrop {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.4);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-        z-index: 998;
-    }
-
-    .nav-backdrop.active {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* Slide-in glass sidebar (iOS-style) instead of a full-screen overlay */
+    /* The inline header nav-links are desktop-only; #mobile-nav (a body-level
+       sibling, not a descendant of the backdrop-filtered .header) is what
+       renders the slide-in sidebar so Safari's fixed-position-inside-a-
+       backdrop-filter-ancestor bug can't trap it inside the header pill. */
     .nav-links {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: min(78vw, 320px);
-        justify-content: center;
-        align-items: stretch;
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 5rem 0.5rem 2rem;
-        background: var(--nav-bg);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.35);
-        transform: translateX(100%);
-        pointer-events: none;
-        transition: var(--transition);
-        z-index: 999;
-    }
-
-    .nav-links.active {
-        transform: translateX(0);
-        pointer-events: auto;
-    }
-
-    .nav-links .nav-link {
-        padding: 1rem 1.5rem;
-        text-align: left;
-        font-size: 1.15rem;
-        color: #e4e4e7;
-        border-radius: 12px;
-    }
-
-    .nav-links .nav-link:active {
-        background: rgba(255, 255, 255, 0.08);
+        display: none;
     }
 
     .header-socials {

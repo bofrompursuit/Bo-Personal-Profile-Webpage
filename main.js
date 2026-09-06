@@ -73,9 +73,13 @@ document.addEventListener('DOMContentLoaded', revealOnScroll); // Check on load
 
 window.addEventListener('scroll', revealOnScroll);
 
-// Mobile nav menu: slides in as a right-hand sidebar over a dimmed backdrop
+// Mobile nav menu: slides in as a right-hand sidebar over a dimmed backdrop.
+// #mobile-nav lives outside .header (not the inline desktop .nav-links)
+// because Safari treats an ancestor's backdrop-filter as a containing block
+// for position:fixed descendants, which would otherwise trap the sidebar
+// inside the small floating header pill.
 const navToggle = document.querySelector('.nav-toggle');
-const navLinks = document.querySelector('.nav-links');
+const navLinks = document.getElementById('mobile-nav');
 const navBackdrop = document.getElementById('nav-backdrop');
 
 if (navToggle && navLinks) {
@@ -298,7 +302,10 @@ if (lazyBgVideos.length && 'IntersectionObserver' in window) {
 // content (no external API calls, so there's no key to leak and no risk of
 // answering off-topic or making things up).
 (() => {
-    const toggleBtn = document.getElementById('ai-chat-toggle');
+    const toggleBtns = [
+        document.getElementById('ai-chat-toggle'),
+        document.getElementById('ai-chat-toggle-mobile'),
+    ].filter(Boolean);
     const panel = document.getElementById('ai-chat-panel');
     const backdrop = document.getElementById('ai-chat-backdrop');
     const closeBtn = document.getElementById('ai-chat-close');
@@ -306,7 +313,7 @@ if (lazyBgVideos.length && 'IntersectionObserver' in window) {
     const form = document.getElementById('ai-chat-form');
     const input = document.getElementById('ai-chat-input');
 
-    if (!toggleBtn || !panel || !form || !input) return;
+    if (!toggleBtns.length || !panel || !form || !input) return;
 
     const KNOWLEDGE = {
         greeting: "Hi! I'm Bo's portfolio assistant. Ask me about his background, technical skills, featured projects, or collaborations.",
@@ -424,7 +431,7 @@ if (lazyBgVideos.length && 'IntersectionObserver' in window) {
         panel.classList.add('is-open');
         backdrop.classList.add('is-open');
         panel.setAttribute('aria-hidden', 'false');
-        toggleBtn.setAttribute('aria-expanded', 'true');
+        toggleBtns.forEach(btn => btn.setAttribute('aria-expanded', 'true'));
         document.body.style.overflow = 'hidden';
 
         if (!greeted) {
@@ -440,12 +447,14 @@ if (lazyBgVideos.length && 'IntersectionObserver' in window) {
         panel.classList.remove('is-open');
         backdrop.classList.remove('is-open');
         panel.setAttribute('aria-hidden', 'true');
-        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtns.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
         document.body.style.overflow = '';
-        toggleBtn.focus();
+        toggleBtns[0].focus();
     }
 
-    toggleBtn.addEventListener('click', () => (isOpen ? closePanel() : openPanel()));
+    toggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => (isOpen ? closePanel() : openPanel()));
+    });
     closeBtn.addEventListener('click', closePanel);
     backdrop.addEventListener('click', closePanel);
 
