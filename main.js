@@ -13,6 +13,47 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Hero typewriter: cycles the hero title through role words, typing and deleting each in turn
+(() => {
+    const el = document.getElementById('hero-typewriter');
+    if (!el) return;
+
+    const words = ['Developer.', 'Builder.', 'Problem Solver.'];
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = words[0];
+        return;
+    }
+
+    let wordIndex = 0;
+    let text = '';
+    let isDeleting = false;
+
+    const tick = () => {
+        const currentWord = words[wordIndex];
+        const speed = isDeleting ? 50 : 100;
+
+        if (!isDeleting && text === currentWord) {
+            setTimeout(() => { isDeleting = true; tick(); }, 1500);
+            return;
+        }
+
+        if (isDeleting && text === '') {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+        } else {
+            text = isDeleting
+                ? currentWord.substring(0, text.length - 1)
+                : currentWord.substring(0, text.length + 1);
+        }
+
+        el.textContent = text;
+        setTimeout(tick, speed);
+    };
+
+    tick();
+})();
+
 // Reveal animations on scroll (base/hidden state lives in CSS; this just toggles the class)
 const revealOnScroll = () => {
     const reveals = document.querySelectorAll('.skill-card, .project-card, .section-header');
@@ -78,13 +119,52 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 document.querySelectorAll('.marquee').forEach(marquee => {
     const track = marquee.querySelector('.marquee-track');
+    const originalCards = Array.from(track.children);
 
-    Array.from(track.children).forEach(card => {
+    originalCards.forEach(card => {
         const clone = card.cloneNode(true);
         clone.setAttribute('aria-hidden', 'true');
         clone.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '-1'));
         track.appendChild(clone);
     });
+
+    // Pagination dots: one per original (non-cloned) card, kept in sync with scroll position
+    const dotsWrap = document.createElement('div');
+    dotsWrap.className = 'marquee-dots';
+    dotsWrap.setAttribute('role', 'tablist');
+    dotsWrap.setAttribute('aria-label', 'Carousel pagination');
+
+    const dots = originalCards.map((card, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'marquee-dot';
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dot.addEventListener('click', () => {
+            marquee.scrollTo({
+                left: card.offsetLeft - (marquee.clientWidth - card.clientWidth) / 2,
+                behavior: 'smooth'
+            });
+        });
+        dotsWrap.appendChild(dot);
+        return dot;
+    });
+    dots[0].classList.add('active');
+    marquee.insertAdjacentElement('afterend', dotsWrap);
+
+    const updateActiveDot = () => {
+        const setWidth = track.scrollWidth / 2;
+        const pos = ((marquee.scrollLeft % setWidth) + setWidth) % setWidth;
+        let closest = 0;
+        let closestDist = Infinity;
+        originalCards.forEach((card, i) => {
+            const dist = Math.abs(card.offsetLeft - pos);
+            if (dist < closestDist) {
+                closestDist = dist;
+                closest = i;
+            }
+        });
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === closest));
+    };
 
     // Auto-flows via rAF-driven scrollLeft; native overflow-x scrolling gives touch/trackpad
     // swipe "for free" on top of it, so users can drag to grab a card without fighting the loop.
@@ -113,6 +193,7 @@ document.querySelectorAll('.marquee').forEach(marquee => {
         if (marquee.scrollLeft >= setWidth) {
             marquee.scrollLeft -= setWidth;
         }
+        updateActiveDot();
     });
 
     if (!prefersReducedMotion) {

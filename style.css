@@ -107,7 +107,15 @@ h3 {
 
 .header-socials {
     display: flex;
-    gap: 1.5rem;
+    gap: 0.5rem;
+}
+
+.header-socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
 }
 
 .nav-toggle {
@@ -115,12 +123,12 @@ h3 {
     flex-direction: column;
     justify-content: center;
     gap: 5px;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
     z-index: 1100;
 }
 
@@ -202,6 +210,24 @@ h3 {
     font-weight: 700;
     margin-bottom: 2rem;
     letter-spacing: -0.02em;
+}
+
+.hero-title-cursor {
+    display: inline-block;
+    margin-left: 0.05em;
+    font-weight: 400;
+    animation: hero-cursor-pulse 1s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-title-cursor {
+        animation: none;
+    }
+}
+
+@keyframes hero-cursor-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .hero-bio {
@@ -490,6 +516,30 @@ h3 {
     background-image: url('https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&q=80&w=800');
 }
 
+.b2b-market-pulse .project-image {
+    background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=800');
+}
+
+.b2b-onboarder .project-image {
+    background-image: url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=800');
+}
+
+.b2b-expense-tracker .project-image {
+    background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800');
+}
+
+.b2b-invoice-generator .project-image {
+    background-image: url('https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&q=80&w=800');
+}
+
+.b2b-inventory .project-image {
+    background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800');
+}
+
+.b2b-valuation .project-image {
+    background-image: url('https://images.unsplash.com/photo-1586880244406-556ebe35f282?auto=format&fit=crop&q=80&w=800');
+}
+
 .project-info {
     padding: 2rem;
 }
@@ -699,7 +749,8 @@ h3 {
     color: var(--text-light);
     opacity: 0.6;
     cursor: pointer;
-    padding: 0.25rem;
+    padding: 0.75rem;
+    margin: -0.75rem;
     transition: var(--transition);
 }
 
@@ -829,7 +880,7 @@ h3 {
     color: white;
     border: none;
     border-radius: 10px;
-    width: 42px;
+    width: 44px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -1002,9 +1053,51 @@ h3 {
     background: none;
     border: none;
     color: inherit;
-    padding: 0.5rem;
+    padding: 0.625rem;
     cursor: pointer;
     transition: var(--transition);
+}
+
+/* Carousel pagination dots (shared by B2B/Projects/Builds marquees) */
+.marquee-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 1.5rem;
+}
+
+.marquee-dot {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.marquee-dot::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color);
+    transition: var(--transition);
+}
+
+.marquee-dot.active::before {
+    background: var(--text-primary);
+    transform: scale(1.3);
+}
+
+.dark-section .marquee-dot::before {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.dark-section .marquee-dot.active::before {
+    background: var(--text-light);
 }
 
 .collapsible.collapsed .collapse-toggle {
@@ -1094,6 +1187,23 @@ h3 {
         padding: 40px 0;
     }
 
+    .section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    #background .header-with-toggle {
+        margin-bottom: 1.25rem;
+    }
+
+    .marquee {
+        margin: 0 -1.25rem;
+        padding: 0 1.25rem;
+    }
+
+    .project-info {
+        padding: 1.5rem;
+    }
+
     .background-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1126,7 +1236,12 @@ h3 {
     .hero-bio {
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 2rem;
         font-size: 1.1rem;
+    }
+
+    .marquee-dots {
+        margin-top: 1rem;
     }
 
     .hero-actions {

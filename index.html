@@ -13,6 +13,17 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
         rel="stylesheet">
+
+    <!-- Web App / PWA icons -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#121212">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bo">
 </head>
 
 <body>
@@ -20,8 +31,9 @@
         <nav class="nav container">
             <a href="#" class="logo">Bo Moldenhauer</a>
             <div class="nav-links">
-                <a href="#work" class="nav-link">Work</a>
+                <a href="#b2b" class="nav-link">B2B Solutions</a>
                 <a href="#background" class="nav-link">Background</a>
+                <a href="#work" class="nav-link">Work</a>
                 <a href="#collaborations" class="nav-link">Collaborations</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <button id="ai-chat-toggle" class="nav-link ai-chat-trigger" aria-haspopup="dialog"
@@ -79,7 +91,7 @@
                 <div class="hero-overlay"></div>
             </div>
             <div class="hero-content container">
-                <h1 class="hero-title">Developer.<br>Builder.<br>Problem Solver.</h1>
+                <h1 class="hero-title"><span id="hero-typewriter">Developer.</span><span class="hero-title-cursor" aria-hidden="true">|</span></h1>
                 <p class="hero-bio">
                     I put <strong>Bo</strong> in colla-<strong>BO</strong>-ration. <br>
                     Client Finance Operations Manager | AI Software Developer with a demonstrated history of working in
@@ -93,11 +105,11 @@
             </div>
         </section>
 
-        <section id="work" class="work collapsible">
+        <section id="b2b" class="work collapsible">
             <div class="container">
                 <div class="section-header">
                     <div class="header-with-toggle">
-                        <h2 class="section-title">Projects that showcase my passion for development.</h2>
+                        <h2 class="section-title">B2B Solutions: AI Orchestrated Tools &amp; Automated Workflows</h2>
                         <button class="collapse-toggle" aria-label="Toggle section">
                             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
                                 fill="none">
@@ -109,65 +121,93 @@
                 <div class="collapsible-content">
                     <div class="marquee">
                         <div class="marquee-track">
-                        <a href="https://bofrompursuit.github.io/scribe/" target="_blank" rel="noopener noreferrer"
-                            class="project-link">
-                            <article class="project-card scribe">
+                        <a href="https://live-market-pulse-dashboard.vercel.app/" target="_blank"
+                            rel="noopener noreferrer" class="project-link">
+                            <article class="project-card b2b-market-pulse">
                                 <div class="project-image"></div>
                                 <div class="project-info">
                                     <div class="project-tags">
-                                        <span class="tag">AI</span>
-                                        <span class="tag">LLM APIs</span>
+                                        <span class="tag">Fintech</span>
+                                        <span class="tag">Real-Time Data</span>
                                     </div>
-                                    <h3>Scribe + Thrive</h3>
-                                    <p>Intelligent transcription tool using AI and LLM APIs for precise and fast
-                                        results.
-                                    </p>
+                                    <h3>Live Market Pulse Dashboard</h3>
+                                    <p>Real-time market data dashboard surfacing live pricing and trend signals for
+                                        fast decision-making.</p>
                                 </div>
                             </article>
                         </a>
-                        <a href="https://bofrompursuit.github.io/ad2/" target="_blank" rel="noopener noreferrer"
-                            class="project-link">
-                            <article class="project-card ad2">
+                        <a href="https://bofrompursuit-lastonboarder.lastonboarder.workers.dev" target="_blank"
+                            rel="noopener noreferrer" class="project-link">
+                            <article class="project-card b2b-onboarder">
                                 <div class="project-image"></div>
                                 <div class="project-info">
                                     <div class="project-tags">
-                                        <span class="tag">AdTech</span>
+                                        <span class="tag">AI Agents</span>
                                         <span class="tag">Automation</span>
                                     </div>
-                                    <h3>Ad Optimizer</h3>
-                                    <p>Advertising technology solution for campaign optimization and performance
-                                        tracking.
-                                    </p>
+                                    <h3>The Last Onboarder</h3>
+                                    <p>Agentic onboarding assistant that automates new-hire and client setup
+                                        workflows end to end.</p>
                                 </div>
                             </article>
                         </a>
-                        <a href="https://bofrompursuit.github.io/closer-data-analytics/" target="_blank"
-                            rel="noopener noreferrer" class="project-link">
-                            <article class="project-card closer">
-                                <div class="project-image"></div>
-                                <div class="project-info">
-                                    <div class="project-tags">
-                                        <span class="tag">Data Analytics</span>
-                                        <span class="tag">React</span>
-                                    </div>
-                                    <h3>Closer Data Analytics</h3>
-                                    <p>Platform for data visualization and reporting, helping businesses make
-                                        data-driven
-                                        decisions.</p>
-                                </div>
-                            </article>
-                        </a>
-                        <a href="https://bofrompursuit.github.io/Soar/" target="_blank" rel="noopener noreferrer"
+                        <a href="https://grain-stew-61195327.figma.site" target="_blank" rel="noopener noreferrer"
                             class="project-link">
-                            <article class="project-card soar">
+                            <article class="project-card b2b-expense-tracker">
                                 <div class="project-image"></div>
                                 <div class="project-info">
                                     <div class="project-tags">
-                                        <span class="tag">Wellness Platform</span>
-                                        <span class="tag">Full Stack</span>
+                                        <span class="tag">/UX</span>
+                                        <span class="tag">B2B Workflow</span>
                                     </div>
-                                    <h3>Soarin' (Wellness Platform)</h3>
-                                    <p>Business growth and performance metric platform designed for scalability.</p>
+                                    <h3>Expense Tracker</h3>
+                                    <p>Streamlined expense-tracking workflow designed to cut friction out of B2B
+                                        spend reporting.</p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://automated-invoice-generator-pearl.vercel.app/" target="_blank"
+                            rel="noopener noreferrer" class="project-link">
+                            <article class="project-card b2b-invoice-generator">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Finance Ops</span>
+                                        <span class="tag">Automation</span>
+                                    </div>
+                                    <h3>Automated Invoice Generator</h3>
+                                    <p>Automated invoice generation tool that removes manual finance-ops busywork
+                                        from billing cycles.</p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://ops-inventory-reorder-dashboard.vercel.app/" target="_blank"
+                            rel="noopener noreferrer" class="project-link">
+                            <article class="project-card b2b-inventory">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Supply Chain</span>
+                                        <span class="tag">Dashboard</span>
+                                    </div>
+                                    <h3>Ops Inventory Reorder Dashboard</h3>
+                                    <p>Supply chain dashboard that flags reorder points and keeps inventory levels
+                                        on track.</p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://plus-object-09034505.figma.site" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card b2b-valuation">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Figma</span>
+                                        <span class="tag">Prototyping</span>
+                                    </div>
+                                    <h3>Startup Valuation Calculator</h3>
+                                    <p>Interactive prototype for modeling startup valuation scenarios, built and
+                                        tested in Figma.</p>
                                 </div>
                             </article>
                         </a>
@@ -266,6 +306,90 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="work collapsible">
+            <div class="container">
+                <div class="section-header">
+                    <div class="header-with-toggle">
+                        <h2 class="section-title">Projects that showcase my passion for development.</h2>
+                        <button class="collapse-toggle" aria-label="Toggle section">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                                fill="none">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="collapsible-content">
+                    <div class="marquee">
+                        <div class="marquee-track">
+                        <a href="https://bofrompursuit.github.io/scribe/" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card scribe">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">AI</span>
+                                        <span class="tag">LLM APIs</span>
+                                    </div>
+                                    <h3>Scribe + Thrive</h3>
+                                    <p>Intelligent transcription tool using AI and LLM APIs for precise and fast
+                                        results.
+                                    </p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://bofrompursuit.github.io/ad2/" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card ad2">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">AdTech</span>
+                                        <span class="tag">Automation</span>
+                                    </div>
+                                    <h3>Ad Optimizer</h3>
+                                    <p>Advertising technology solution for campaign optimization and performance
+                                        tracking.
+                                    </p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://bofrompursuit.github.io/closer-data-analytics/" target="_blank"
+                            rel="noopener noreferrer" class="project-link">
+                            <article class="project-card closer">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Data Analytics</span>
+                                        <span class="tag">React</span>
+                                    </div>
+                                    <h3>Closer Data Analytics</h3>
+                                    <p>Platform for data visualization and reporting, helping businesses make
+                                        data-driven
+                                        decisions.</p>
+                                </div>
+                            </article>
+                        </a>
+                        <a href="https://bofrompursuit.github.io/Soar/" target="_blank" rel="noopener noreferrer"
+                            class="project-link">
+                            <article class="project-card soar">
+                                <div class="project-image"></div>
+                                <div class="project-info">
+                                    <div class="project-tags">
+                                        <span class="tag">Wellness Platform</span>
+                                        <span class="tag">Full Stack</span>
+                                    </div>
+                                    <h3>Soarin' (Wellness Platform)</h3>
+                                    <p>Business growth and performance metric platform designed for scalability.</p>
+                                </div>
+                            </article>
+                        </a>
                         </div>
                     </div>
                 </div>
