@@ -182,8 +182,48 @@ document.querySelectorAll('.marquee').forEach(marquee => {
     marquee.addEventListener('mouseleave', () => resume(0));
     marquee.addEventListener('touchstart', pause, { passive: true });
     marquee.addEventListener('touchend', () => resume());
-    marquee.addEventListener('pointerdown', pause);
-    window.addEventListener('pointerup', () => resume());
+
+    // Click-and-drag scroll for mouse users: the scrollbar is hidden, so touch/trackpad
+    // swipe works natively but a mouse otherwise has no way to grab the track by hand.
+    let isDragging = false;
+    let dragMoved = false;
+    let dragStartX = 0;
+    let dragStartScroll = 0;
+
+    marquee.addEventListener('pointerdown', (e) => {
+        pause();
+        if (e.pointerType !== 'mouse') return;
+        isDragging = true;
+        dragMoved = false;
+        dragStartX = e.clientX;
+        dragStartScroll = marquee.scrollLeft;
+        marquee.classList.add('dragging');
+    });
+
+    window.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - dragStartX;
+        if (Math.abs(dx) > 5) dragMoved = true;
+        marquee.scrollLeft = dragStartScroll - dx;
+    });
+
+    window.addEventListener('pointerup', () => {
+        if (isDragging) {
+            isDragging = false;
+            marquee.classList.remove('dragging');
+        }
+        resume();
+    });
+
+    // Suppress the click that would otherwise fire on a card link after an actual drag,
+    // while leaving a plain (no-movement) click free to navigate as normal.
+    marquee.addEventListener('click', (e) => {
+        if (dragMoved) {
+            e.preventDefault();
+            e.stopPropagation();
+            dragMoved = false;
+        }
+    }, true);
 
     marquee.addEventListener('scroll', () => {
         if (marquee.scrollLeft >= setWidth) {

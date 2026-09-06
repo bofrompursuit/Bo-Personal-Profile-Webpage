@@ -361,8 +361,8 @@ h3 {
     pointer-events: none;
 }
 
-.bg-overlay-indigo {
-    background: linear-gradient(135deg, rgba(30, 27, 75, 0.92), rgba(49, 46, 129, 0.85));
+.bg-overlay-charcoal {
+    background: rgba(18, 18, 18, 0.75);
 }
 
 .bg-overlay-dark {
@@ -456,7 +456,9 @@ h3 {
 }
 
 /* Infinite marquee of project cards: native scroll container (JS drives the
-   auto-scroll + seamless loop-back) so touch/trackpad swipe works for free. */
+   auto-scroll + seamless loop-back) so touch/trackpad swipe works for free.
+   Mouse users get a click-and-drag scroll (see main.js) since the scrollbar
+   is hidden and there's otherwise no way to grab it with a mouse. */
 .marquee {
     overflow-x: auto;
     overflow-y: hidden;
@@ -465,8 +467,18 @@ h3 {
     touch-action: pan-x;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    cursor: grab;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.marquee.dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+}
+
+.marquee.dragging * {
+    user-select: none;
 }
 
 .marquee::-webkit-scrollbar {
@@ -571,6 +583,22 @@ h3 {
 
 .b2b-valuation .project-image {
     background-image: url('https://images.unsplash.com/photo-1586880244406-556ebe35f282?auto=format&fit=crop&q=80&w=800');
+}
+
+.savoree .project-image {
+    background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800');
+}
+
+.hypeman .project-image {
+    background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&q=80&w=800');
+}
+
+.collab-jonnyverse .project-image {
+    background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800');
+}
+
+.collab-bingo .project-image {
+    background-image: url('https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&q=80&w=800');
 }
 
 .project-info {
@@ -970,7 +998,7 @@ h3 {
     height: 0.85rem;
     background: #c4b5fd;
     border-radius: 50%;
-    border: 3px solid #1e1b4b;
+    border: 3px solid #121212;
 }
 
 .timeline-date {
@@ -993,56 +1021,30 @@ h3 {
     font-size: 0.9rem;
 }
 
-/* Technical Arsenal (compact, lives in a .background-col) */
-.arsenal-grid {
+/* Technical Arsenal: compact inline rows instead of separate tag-block cards */
+.arsenal-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
 }
 
-.arsenal-category {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 1.25rem 1.5rem;
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    transition: var(--transition);
+.arsenal-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.arsenal-category:hover {
-    background: var(--card-bg-hover);
-    border-color: var(--card-border-hover);
-}
-
-.arsenal-category h3 {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
-
-.arsenal-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.tag.tech {
-    background: var(--badge-bg);
-    border: 1px solid var(--badge-border);
-    padding: 0.5rem 1rem;
+.arsenal-row dt {
+    font-weight: 700;
+    color: #fff;
     font-size: 0.9rem;
-    color: var(--badge-text);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: var(--transition);
 }
 
-.tag.tech:hover {
-    border-color: var(--accent-purple);
-    background: var(--card-bg-hover);
-    transform: translateY(-2px);
+.arsenal-row dd {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 /* Contact Grid & WhatsApp QR */
@@ -1275,6 +1277,11 @@ h3 {
     .background-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+
+    .arsenal-row {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
     }
 
     .contact {
