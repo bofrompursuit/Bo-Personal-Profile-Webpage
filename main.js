@@ -73,18 +73,6 @@ document.addEventListener('DOMContentLoaded', revealOnScroll); // Check on load
 
 window.addEventListener('scroll', revealOnScroll);
 
-// Header background change on scroll
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 50) {
-        header.style.padding = "0.5rem 0";
-        header.style.boxShadow = "0 4px 20px rgba(0,0,0,0.05)";
-    } else {
-        header.style.padding = "0";
-        header.style.boxShadow = "none";
-    }
-});
-
 // Mobile nav menu
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
@@ -168,9 +156,18 @@ document.querySelectorAll('.marquee').forEach(marquee => {
 
     // Auto-flows via rAF-driven scrollLeft; native overflow-x scrolling gives touch/trackpad
     // swipe "for free" on top of it, so users can drag to grab a card without fighting the loop.
-    const speed = 0.6; // px per frame
+    // Direction/duration are content-driven so every marquee completes a loop in ~30s
+    // regardless of card count, and alternates direction per data-direction on the container.
+    const direction = marquee.dataset.direction === 'right' ? -1 : 1;
+    const loopDurationSeconds = 30;
+    const setWidth = track.scrollWidth / 2;
+    const speed = setWidth / (loopDurationSeconds * 60); // px per frame at ~60fps
     let flowing = true;
     let resumeTimer = null;
+
+    if (direction === -1) {
+        marquee.scrollLeft = setWidth;
+    }
 
     const pause = () => {
         flowing = false;
@@ -189,9 +186,10 @@ document.querySelectorAll('.marquee').forEach(marquee => {
     window.addEventListener('pointerup', () => resume());
 
     marquee.addEventListener('scroll', () => {
-        const setWidth = track.scrollWidth / 2;
         if (marquee.scrollLeft >= setWidth) {
             marquee.scrollLeft -= setWidth;
+        } else if (marquee.scrollLeft <= 0) {
+            marquee.scrollLeft += setWidth;
         }
         updateActiveDot();
     });
@@ -199,7 +197,7 @@ document.querySelectorAll('.marquee').forEach(marquee => {
     if (!prefersReducedMotion) {
         const step = () => {
             if (flowing) {
-                marquee.scrollLeft += speed;
+                marquee.scrollLeft += speed * direction;
             }
             requestAnimationFrame(step);
         };
