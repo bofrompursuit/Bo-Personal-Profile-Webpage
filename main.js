@@ -73,23 +73,29 @@ document.addEventListener('DOMContentLoaded', revealOnScroll); // Check on load
 
 window.addEventListener('scroll', revealOnScroll);
 
-// Mobile nav menu
+// Mobile nav menu: slides in as a right-hand sidebar over a dimmed backdrop
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
+const navBackdrop = document.getElementById('nav-backdrop');
 
 if (navToggle && navLinks) {
+    const closeNav = () => {
+        navLinks.classList.remove('active');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navBackdrop?.classList.remove('active');
+    };
+
     navToggle.addEventListener('click', () => {
         const isOpen = navLinks.classList.toggle('active');
         navToggle.classList.toggle('active', isOpen);
         navToggle.setAttribute('aria-expanded', isOpen);
+        navBackdrop?.classList.toggle('active', isOpen);
     });
 
+    navBackdrop?.addEventListener('click', closeNav);
     navLinks.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            navToggle.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', 'false');
-        });
+        link.addEventListener('click', closeNav);
     });
 }
 

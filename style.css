@@ -1218,34 +1218,59 @@ h3 {
         display: flex;
     }
 
-    .nav-links {
+    .nav-backdrop {
         position: fixed;
         inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 998;
+    }
+
+    .nav-backdrop.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Slide-in glass sidebar (iOS-style) instead of a full-screen overlay */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(78vw, 320px);
         justify-content: center;
-        align-items: center;
+        align-items: stretch;
         flex-direction: column;
         gap: 0.5rem;
+        padding: 5rem 0.5rem 2rem;
         background: var(--nav-bg);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        transform: translateY(-100%);
-        opacity: 0;
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.35);
+        transform: translateX(100%);
         pointer-events: none;
         transition: var(--transition);
         z-index: 999;
     }
 
     .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
+        transform: translateX(0);
         pointer-events: auto;
     }
 
     .nav-links .nav-link {
-        padding: 1.25rem;
-        text-align: center;
-        font-size: 1.5rem;
+        padding: 1rem 1.5rem;
+        text-align: left;
+        font-size: 1.15rem;
         color: #e4e4e7;
+        border-radius: 12px;
+    }
+
+    .nav-links .nav-link:active {
+        background: rgba(255, 255, 255, 0.08);
     }
 
     .header-socials {
