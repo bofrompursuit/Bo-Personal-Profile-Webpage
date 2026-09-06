@@ -159,7 +159,7 @@ document.querySelectorAll('.marquee').forEach(marquee => {
     // Direction/duration are content-driven so every marquee completes a loop in ~30s
     // regardless of card count, and alternates direction per data-direction on the container.
     const direction = marquee.dataset.direction === 'right' ? -1 : 1;
-    const loopDurationSeconds = 30;
+    const loopDurationSeconds = 26;
     const setWidth = track.scrollWidth / 2;
     const speed = setWidth / (loopDurationSeconds * 60); // px per frame at ~60fps
     let flowing = true;

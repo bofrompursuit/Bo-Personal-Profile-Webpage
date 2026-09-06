@@ -361,8 +361,8 @@ h3 {
     pointer-events: none;
 }
 
-.bg-overlay-light {
-    background: rgba(248, 249, 250, 0.88);
+.bg-overlay-indigo {
+    background: linear-gradient(135deg, rgba(30, 27, 75, 0.92), rgba(49, 46, 129, 0.85));
 }
 
 .bg-overlay-dark {
@@ -371,6 +371,7 @@ h3 {
 
 #background {
     padding: 50px 0;
+    color: rgba(255, 255, 255, 0.92);
 }
 
 #background .header-with-toggle {
@@ -389,7 +390,7 @@ h3 {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--text-primary);
+    color: #fff;
     margin-bottom: 1.25rem;
 }
 
@@ -402,7 +403,7 @@ h3 {
 
 .background-points li {
     font-size: 1.1rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     padding-left: 1.5rem;
     position: relative;
 }
@@ -411,12 +412,12 @@ h3 {
     content: "\2192";
     position: absolute;
     left: 0;
-    color: var(--accent-purple);
+    color: #c4b5fd;
     font-weight: 700;
 }
 
 .background-points strong {
-    color: var(--text-primary);
+    color: #fff;
 }
 
 .skills-grid {
@@ -487,6 +488,9 @@ h3 {
 }
 
 .project-card {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
     border-radius: 20px;
     overflow: hidden;
     background: var(--card-bg);
@@ -507,6 +511,7 @@ h3 {
 
 .project-image {
     height: 300px;
+    flex-shrink: 0;
     background-size: cover;
     background-position: center;
 }
@@ -570,6 +575,10 @@ h3 {
 
 .project-info {
     padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .project-tags {
@@ -600,6 +609,11 @@ h3 {
 
 .project-info p {
     color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
 }
 
 /* Contact & Dark Section */
@@ -936,7 +950,7 @@ h3 {
 .timeline {
     position: relative;
     padding-left: 1.5rem;
-    border-left: 2px solid var(--border-color);
+    border-left: 2px solid rgba(255, 255, 255, 0.25);
 }
 
 .timeline-item {
@@ -954,16 +968,16 @@ h3 {
     top: 0.35rem;
     width: 0.85rem;
     height: 0.85rem;
-    background: var(--accent-purple);
+    background: #c4b5fd;
     border-radius: 50%;
-    border: 3px solid var(--bg-secondary);
+    border: 3px solid #1e1b4b;
 }
 
 .timeline-date {
     display: block;
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--accent-purple);
+    color: #c4b5fd;
     text-transform: uppercase;
     margin-bottom: 0.25rem;
 }
@@ -971,10 +985,11 @@ h3 {
 .timeline-content h3 {
     font-size: 1.1rem;
     margin-bottom: 0.35rem;
+    color: #fff;
 }
 
 .timeline-content p {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 0.9rem;
 }
 
@@ -1306,6 +1321,10 @@ h3 {
         width: 280px;
     }
 
+    .project-card {
+        height: 400px;
+    }
+
     .project-image {
         height: 220px;
     }
@@ -1350,6 +1369,30 @@ h3 {
         flex-direction: column;
         gap: 0.5rem;
         text-align: center;
+    }
+}
+
+/* Wide desktop: give grids/flex containers a bit more breathing room */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1320px;
+    }
+
+    .work,
+    .about {
+        padding: 120px 0;
+    }
+
+    .background-grid {
+        gap: 4rem;
+    }
+
+    .marquee-track {
+        gap: 2.5rem;
+    }
+
+    .contact-grid {
+        gap: 5rem;
     }
 }
 
