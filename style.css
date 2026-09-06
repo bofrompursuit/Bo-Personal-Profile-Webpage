@@ -232,6 +232,9 @@ h3 {
     font-weight: 700;
     margin-bottom: 2rem;
     letter-spacing: -0.02em;
+    /* Reserves room for the tallest possible wrap (2 lines) so the rotating
+       word never shifts the bio text below it as it types/deletes. */
+    min-height: 2.2em;
 }
 
 .hero-title-cursor {
@@ -402,14 +405,14 @@ h3 {
 }
 
 .background-points li {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
-    padding-left: 1.5rem;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.78);
+    padding-left: 1.75rem;
     position: relative;
 }
 
 .background-points li::before {
-    content: "\2192";
+    content: "//";
     position: absolute;
     left: 0;
     color: #c4b5fd;
@@ -1017,8 +1020,8 @@ h3 {
 }
 
 .timeline-content p {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 1rem;
 }
 
 /* Technical Arsenal: compact inline rows instead of separate tag-block cards */
@@ -1038,12 +1041,12 @@ h3 {
 .arsenal-row dt {
     font-weight: 700;
     color: #fff;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .arsenal-row dd {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 1rem;
     line-height: 1.5;
 }
 
@@ -1219,9 +1222,10 @@ h3 {
         position: fixed;
         inset: 0;
         justify-content: center;
+        align-items: center;
         flex-direction: column;
         gap: 0.5rem;
-        background: rgba(9, 9, 11, 0.97);
+        background: var(--nav-bg);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         transform: translateY(-100%);
@@ -1305,7 +1309,7 @@ h3 {
     }
 
     .hero-title {
-        font-size: 2.75rem;
+        font-size: clamp(2.75rem, 11vw, 4rem);
     }
 
     .hero-bio {
@@ -1404,10 +1408,6 @@ h3 {
 }
 
 @media (max-width: 480px) {
-    .hero-title {
-        font-size: 2.25rem;
-    }
-
     .section-title {
         font-size: 1.85rem;
     }

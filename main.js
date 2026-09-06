@@ -18,7 +18,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const el = document.getElementById('hero-typewriter');
     if (!el) return;
 
-    const words = ['Developer.', 'Builder.', 'Problem Solver.'];
+    const words = ['// Developer', '// Builder', '// Problem Solver'];
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         el.textContent = words[0];
